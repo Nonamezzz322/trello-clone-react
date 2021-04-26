@@ -142,7 +142,8 @@ const board = (state = initialState, action) => {
       };
 
     case types.RE_ORDER_LIST:
-      const listIndex = state.lists.findIndex(list => list.id === action.data.listId);
+      const { listId } = action.data;
+      const listIndex = state.lists.findIndex(list => list.id === listId);
       const list = state.lists[listIndex];
       const orderedListCards = BoardHelper.reOrderList(
         list.cards,
@@ -160,13 +161,14 @@ const board = (state = initialState, action) => {
       };
 
     case types.MOVE_CARD_TO_LIST:
-      const sourceListIndex = state.lists.findIndex(cardList => cardList.id === action.data.sourceListId);
+      const { sourceListId, cardId } = action.data;
+      const sourceListIndex = state.lists.findIndex(cardList => cardList.id === sourceListId);
       const sourceList = state.lists[sourceListIndex];
       const destinationListIndex = state.lists.findIndex(
         cardList => cardList.id === action.data.destinationListId
       );
       const destinationList = state.lists[destinationListIndex];
-      const cardSourceIndex = sourceList.cards.findIndex(item => item.id === action.data.cardId);
+      const cardSourceIndex = sourceList.cards.findIndex(item => item.id === cardId);
       const { newSourceList, newDestinationList } = BoardHelper.moveCardToList(
         sourceList.cards,
         destinationList.cards,

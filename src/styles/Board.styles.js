@@ -11,5 +11,4 @@ export const BoardContainer = styled.div`
   @media device and ${device.tabletLandscape} {
     overflow-x: auto;
   }
-  
 `;

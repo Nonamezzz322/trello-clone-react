@@ -22,7 +22,6 @@ const CardListHeader = props => {
     setEditMode(isEditing => !isEditing);
   };
 
-
   useEffect(() => {
     if (editMode) {
       UtilsHelper.focusCursorToEnd(ref);

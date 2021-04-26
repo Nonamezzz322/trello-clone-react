@@ -22,15 +22,12 @@ import {
 const Board = props => {
   const onDragEnd = result => {
     const { source, destination, draggableId } = result;
-    // dropped outside the list
     if (!destination) {
       return;
     }
     if (source.droppableId === destination.droppableId) {
-      // Dropped in the same list
       props.reOrderList(source.droppableId, source.index, destination.index);
     } else {
-      // Drop in other list
       props.moveCardToList(
         source.droppableId,
         draggableId,
@@ -52,6 +49,7 @@ const Board = props => {
               onChangeListName={listName => props.onChangeListName(listIndex, listName)}
               onRemoveList={() => props.onRemoveList(listIndex)}
               onDuplicateList={() => props.onDuplicateList(listIndex)}
+              // eslint-disable-next-line max-len
               onChangeCardContent={(cardIndex, content) => props.onChangeCardContent(listIndex, cardIndex, content)}
               onAddCard={cardContent => props.onAddCard(listIndex, cardContent)}
               onRemoveCard={cardIndex => props.onRemoveCard(listIndex, cardIndex)}

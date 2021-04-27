@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   HeaderContainer,
@@ -18,8 +17,13 @@ import IconButton from './IconButton';
 import { themeLight, themeDark } from '../styles/theme';
 
 const Header = props => {
-  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) === false);
+  const dispatch = useDispatch();
 
+  const search = useSelector(s => s.search);
+  const hasNextStates = useSelector(s => s.board.futureStates.length > 0);
+  const hasPreviousStates = useSelector(s => s.board.previousStates.length > 0);
+
+  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) === false);
   const changeTheme = () => {
     localStorage.setItem('darkTheme', darkTheme);
     setDarkTheme(!darkTheme);
@@ -31,8 +35,8 @@ const Header = props => {
         <HeaderInputWrapper>
           <SearchInput
             placeholder="Search cards..."
-            value={props.search}
-            onChange={e => props.setSearch(e.target.value)}
+            value={search}
+            onChange={e => dispatch(setSearch(e.target.value))}
           />
         </HeaderInputWrapper>
         <Link to="/board">
@@ -46,14 +50,14 @@ const Header = props => {
           />
           <IconButton
             fontSize="15px"
-            onClick={props.undoAction}
-            disabled={!props.hasPreviousStates}
+            onClick={() => dispatch(undoAction())}
+            disabled={!hasPreviousStates}
             iconType="undo"
           />
           <IconButton
             fontSize="15px"
-            onClick={props.redoAction}
-            disabled={!props.hasNextStates}
+            onClick={() => dispatch(redoAction())}
+            disabled={!hasNextStates}
             iconType="redo"
           />
 
@@ -65,27 +69,6 @@ const Header = props => {
 
 Header.propTypes = {
   setTheme: PropTypes.func,
-  search: PropTypes.string,
-  setSearch: PropTypes.func,
-  undoAction: PropTypes.func,
-  redoAction: PropTypes.func,
-  hasPreviousStates: PropTypes.bool,
-  hasNextStates: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  search: state.search,
-  hasNextStates: state.board.futureStates.length > 0,
-  hasPreviousStates: state.board.previousStates.length > 0
-});
-
-const mapDispatchToProps = dispatch => ({
-  setSearch: bindActionCreators(setSearch, dispatch),
-  undoAction: bindActionCreators(undoAction, dispatch),
-  redoAction: bindActionCreators(redoAction, dispatch)
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default Header;

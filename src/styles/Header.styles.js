@@ -23,9 +23,9 @@ export const HeaderLogo = styled.img`
 export const HeaderInputWrapper = styled.div`
   width: 100%;
   justify-self: flex-start;
-  margin-left: 4px;
+  margin-left: 10px;
 `;
 export const HeaderIconsContainer = styled.div`
   justify-self: flex-end;
-  margin-right: 4px;
+  margin-right: 10px;
 `;

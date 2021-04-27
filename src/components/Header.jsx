@@ -17,6 +17,7 @@ import IconButton from './IconButton';
 import { themeLight, themeDark } from '../styles/theme';
 
 const Header = props => {
+  const { setTheme } = props;
   const dispatch = useDispatch();
 
   const search = useSelector(s => s.search);
@@ -27,7 +28,7 @@ const Header = props => {
   const changeTheme = () => {
     localStorage.setItem('darkTheme', darkTheme);
     setDarkTheme(!darkTheme);
-    props.setTheme(darkTheme ? themeDark : themeLight);
+    setTheme(darkTheme ? themeDark : themeLight);
   };
   return (
     <HeaderContainer>

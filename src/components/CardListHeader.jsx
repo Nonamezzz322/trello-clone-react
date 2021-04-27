@@ -7,17 +7,18 @@ import IconButton from './IconButton';
 import * as UtilsHelper from '../helpers/utils';
 
 const CardListHeader = props => {
+  const { listName, onChangeListName, onRemoveList, onDuplicateList } = props;
   const ref = useRef(null);
   const [onHover, setOnHover] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [listName, setListName] = useState(props.listName);
+  const [lstName, setListName] = useState(listName);
   useEffect(() => {
-    setListName(props.listName);
-  }, [props.listName]);
+    setListName(listName);
+  }, [listName]);
 
   const onClickSaveEdit = () => {
     if (editMode) {
-      props.onChangeListName(listName);
+      onChangeListName(lstName);
     }
     setEditMode(isEditing => !isEditing);
   };
@@ -30,7 +31,7 @@ const CardListHeader = props => {
 
   const onClickOutside = () => {
     setEditMode(false);
-    props.onChangeListName(listName);
+    onChangeListName(lstName);
   };
 
   const handleKeyDown = e => {
@@ -40,7 +41,7 @@ const CardListHeader = props => {
       setEditMode(false);
       ref.current.blur();
       const name = ref.current.innerText;
-      props.onChangeListName(name);
+      onChangeListName(name);
     }
   };
   return (
@@ -54,7 +55,7 @@ const CardListHeader = props => {
       >
         <ContentEditable
           innerRef={ref}
-          html={listName}
+          html={lstName}
           onChange={e => setListName(e.target.value)}
           onFocus={() => setEditMode(true)}
           onKeyDown={handleKeyDown}
@@ -78,7 +79,7 @@ const CardListHeader = props => {
               right="22px"
             >
               <IconButton
-                onClick={props.onDuplicateList}
+                onClick={onDuplicateList}
                 iconType="copy"
               />
             </IconButton.ButtonContainer>
@@ -87,7 +88,7 @@ const CardListHeader = props => {
               right="3px"
             >
               <IconButton
-                onClick={props.onRemoveList}
+                onClick={onRemoveList}
                 iconType="delete"
               />
             </IconButton.ButtonContainer>

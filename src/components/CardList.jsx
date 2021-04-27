@@ -15,33 +15,45 @@ const getFilteredCards = (cards, searchText) => {
 };
 
 const CardList = props => {
+  const {
+    list,
+    searchText,
+    onChangeCardContent,
+    onChangeListName,
+    onRemoveList,
+    droppableId,
+    onAddCard,
+    onRemoveCard,
+    onDuplicateCard,
+    onDuplicateList,
+  } = props;
   return (
     <CardListWrapper>
       <CardListHeader
-        listName={props.list.name}
-        onChangeListName={props.onChangeListName}
-        onRemoveList={props.onRemoveList}
-        onDuplicateList={props.onDuplicateList}
+        listName={list.name}
+        onChangeListName={onChangeListName}
+        onRemoveList={onRemoveList}
+        onDuplicateList={onDuplicateList}
       />
-      <Droppable droppableId={props.droppableId}>
+      <Droppable droppableId={droppableId}>
         {(provided, snapshot) => (
           <CardListContainer
             ref={provided.innerRef}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {getFilteredCards(props.list.cards, props.searchText).map((card, index) => (
+            {getFilteredCards(list.cards, searchText).map((card, index) => (
               <Card
                 key={card.id}
                 card={card}
                 index={index}
-                onChangeCardContent={content => props.onChangeCardContent(index, content)}
-                onRemoveCard={() => props.onRemoveCard(index)}
-                onDuplicateCard={() => props.onDuplicateCard(index)}
+                onChangeCardContent={content => onChangeCardContent(index, content)}
+                onRemoveCard={() => onRemoveCard(index)}
+                onDuplicateCard={() => onDuplicateCard(index)}
               />
             ))}
             {provided.placeholder}
             <AddForm
-              onConfirm={props.onAddCard}
+              onConfirm={onAddCard}
               placeholder="+ Add new card"
               focusPlaceholder="Enter card content"
               darkFont

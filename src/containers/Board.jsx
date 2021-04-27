@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BoardContainer } from '../styles/Board.styles';
 import CardList from '../components/CardList';
 import AddForm from '../components/AddForm';
@@ -19,22 +17,10 @@ import {
   duplicateList
 } from '../actions/boardActions';
 
-const Board = props => {
-  const {
-    lists,
-    onChangeListName,
-    onRemoveList,
-    onDuplicateList,
-    onChangeCardContent,
-    search,
-    onAddList,
-    onAddCard,
-    onRemoveCard,
-    onDuplicateCard,
-    reorderList,
-    onMoveCardToList
-
-  } = props;
+const Board = () => {
+  const dispatch = useDispatch();
+  const lists = useSelector(state => state.board.currentState.lists);
+  const search = useSelector(state => state.search);
 
   const onDragEnd = result => {
     const { source, destination, draggableId } = result;
@@ -42,15 +28,15 @@ const Board = props => {
       return;
     }
     if (source.droppableId === destination.droppableId) {
-      reorderList(source.droppableId, source.index, destination.index);
+      dispatch(reOrderList(source.droppableId, source.index, destination.index));
     } else {
-      onMoveCardToList(
+      dispatch(moveCardToList(
         source.droppableId,
         draggableId,
         destination.droppableId,
         destination.index,
 
-      );
+      ));
     }
   };
   return (
@@ -62,20 +48,21 @@ const Board = props => {
               key={list.id}
               droppableId={list.id}
               list={list}
-              onChangeListName={listName => onChangeListName(listIndex, listName)}
-              onRemoveList={() => onRemoveList(listIndex)}
-              onDuplicateList={() => onDuplicateList(listIndex)}
-              // eslint-disable-next-line max-len
-              onChangeCardContent={(cardIndex, content) => onChangeCardContent(listIndex, cardIndex, content)}
-              onAddCard={cardContent => onAddCard(listIndex, cardContent)}
-              onRemoveCard={cardIndex => onRemoveCard(listIndex, cardIndex)}
-              onDuplicateCard={cardIndex => onDuplicateCard(listIndex, cardIndex)}
+              onChangeListName={listName => dispatch(setListName(listIndex, listName))}
+              onRemoveList={() => dispatch(removeList(listIndex))}
+              onDuplicateList={() => dispatch(duplicateList(listIndex))}
+              onChangeCardContent={
+                (cardIndex, content) => dispatch(setCardContent(listIndex, cardIndex, content))
+              }
+              onAddCard={cardContent => dispatch(addCard(listIndex, cardContent))}
+              onRemoveCard={cardIndex => dispatch(removeCard(listIndex, cardIndex))}
+              onDuplicateCard={cardIndex => dispatch(duplicateCard(listIndex, cardIndex))}
               searchText={search}
             />
           ))}
         </DragDropContext>
         <AddForm
-          onConfirm={onAddList}
+          onConfirm={() => dispatch(addList)}
           placeholder="+ Add new list"
           focusPlaceholder="Enter list title"
           maxWidth="220px"
@@ -85,43 +72,4 @@ const Board = props => {
   );
 };
 
-Board.propTypes = {
-  reorderList: PropTypes.func,
-  onMoveCardToList: PropTypes.func,
-  lists: PropTypes.array,
-  onChangeListName: PropTypes.func,
-  onRemoveList: PropTypes.func,
-  onDuplicateList: PropTypes.func,
-  onChangeCardContent: PropTypes.func,
-  search: PropTypes.string,
-  onAddList: PropTypes.func,
-  onAddCard: PropTypes.func,
-  onRemoveCard: PropTypes.func,
-  onDuplicateCard: PropTypes.func,
-};
-const mapStateToProps = state => ({
-  lists: state.board.currentState.lists,
-  search: state.search,
-});
-
-const mapDispatchToProps = dispatch => ({
-  addCard: bindActionCreators(addCard, dispatch),
-  removeCard: bindActionCreators(removeCard, dispatch),
-  addList: bindActionCreators(addList, dispatch),
-  removeList: bindActionCreators(removeList, dispatch),
-  reorderList: bindActionCreators(reOrderList, dispatch),
-  onMoveCardToList: bindActionCreators(moveCardToList, dispatch),
-  onChangeCardContent: bindActionCreators(setCardContent, dispatch),
-  onChangeListName: bindActionCreators(setListName, dispatch),
-  onRemoveList: bindActionCreators(removeList, dispatch),
-  onDuplicateList: bindActionCreators(duplicateList, dispatch),
-  onAddList: bindActionCreators(addList, dispatch),
-  onAddCard: bindActionCreators(addCard, dispatch),
-  onRemoveCard: bindActionCreators(removeCard, dispatch),
-  onDuplicateCard: bindActionCreators(duplicateCard, dispatch),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Board);
+export default Board;

@@ -1,11 +1,11 @@
-import { randomId } from './utils';
+import { v4 as uuidv4 } from 'uuid';
 
 const getCard = content => ({
-  id: randomId(),
+  id: uuidv4(),
   content
 });
 export default [
-  { id: randomId(),
+  { id: uuidv4(),
     name: 'To do',
     cards: [
       getCard('Ingregrate frontend with backend'),
@@ -13,7 +13,7 @@ export default [
       getCard('Setup production environment'),
       getCard('Deploy to production')
     ] },
-  { id: randomId(),
+  { id: uuidv4(),
     name: 'In progress',
     cards: [
       getCard('Create unit tests'),
@@ -21,14 +21,14 @@ export default [
       getCard('Mock frontend')
     ] },
   {
-    id: randomId(),
+    id: uuidv4(),
     name: 'Ready for test',
     cards: [
       getCard('Implement use cases'),
       getCard('Design API'),
     ]
   },
-  { id: randomId(),
+  { id: uuidv4(),
     name: 'Done',
     cards: [
       getCard('Design database model'),

@@ -10,7 +10,7 @@ export const themeLight = {
   blueHover: '#5fa3d3',
   grayHover: '#f3f3f3',
   grayIcon: '#939393',
-  whiteIcon: '#FFFF'
+  headerIcon: '#dfe6ff'
 
 };
 
@@ -26,6 +26,6 @@ export const themeDark = {
   blueHover: '#194350',
   grayHover: '#02475e',
   grayIcon: '#939393',
-  whiteIcon: '#02475e'
+  headerIcon: '#dfe6ff'
 
 };

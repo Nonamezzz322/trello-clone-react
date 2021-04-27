@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { Link } from 'react-router-dom';
 import {
   HeaderContainer,
@@ -16,8 +15,16 @@ import SearchInput from './SearchInput';
 import { undoAction, redoAction } from '../actions/undoActions';
 import { setSearch } from '../actions/searchActions';
 import IconButton from './IconButton';
+import { themeLight, themeDark } from '../styles/theme';
 
 const Header = props => {
+  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) === false);
+
+  const changeTheme = () => {
+    localStorage.setItem('darkTheme', darkTheme);
+    setDarkTheme(!darkTheme);
+    props.setTheme(darkTheme ? themeDark : themeLight);
+  };
   return (
     <HeaderContainer>
       <HeaderLogoContainer>
@@ -32,6 +39,11 @@ const Header = props => {
           <HeaderLogo src={logo} />
         </Link>
         <HeaderIconsContainer>
+          <IconButton
+            fontSize="15px"
+            onClick={changeTheme}
+            iconType={darkTheme ? 'dark' : 'light'}
+          />
           <IconButton
             fontSize="15px"
             onClick={props.undoAction}
@@ -52,6 +64,7 @@ const Header = props => {
 };
 
 Header.propTypes = {
+  setTheme: PropTypes.func,
   search: PropTypes.string,
   setSearch: PropTypes.func,
   undoAction: PropTypes.func,
@@ -59,6 +72,7 @@ Header.propTypes = {
   hasPreviousStates: PropTypes.bool,
   hasNextStates: PropTypes.bool,
 };
+
 const mapStateToProps = state => ({
   search: state.search,
   hasNextStates: state.board.futureStates.length > 0,

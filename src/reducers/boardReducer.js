@@ -1,6 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import * as types from '../constants/ActionTypes';
 import * as BoardHelper from '../helpers/boardHelper';
-import { randomId } from '../helpers/utils';
 import mockData from '../helpers/mockData';
 
 const initialState = {
@@ -15,7 +15,7 @@ const board = (state = initialState, action) => {
       newState = [
         ...state.lists,
         {
-          id: randomId(),
+          id: uuidv4(),
           name: action.data,
           cards: []
         }
@@ -41,10 +41,10 @@ const board = (state = initialState, action) => {
           ...state.lists.slice(0, action.data),
           {
             ...listToDuplicate,
-            id: randomId(),
+            id: uuidv4(),
             cards: listToDuplicate.cards.map(card => ({
               ...card,
-              id: randomId()
+              id: uuidv4()
             }))
           },
           ...state.lists.slice(action.data)
@@ -61,7 +61,7 @@ const board = (state = initialState, action) => {
           return {
             ...list,
             cards: [...list.cards, {
-              id: randomId(),
+              id: uuidv4(),
               content: action.data.cardContent
             }]
           };
@@ -97,7 +97,7 @@ const board = (state = initialState, action) => {
               ...list.cards.slice(0, action.data.cardIndex),
               {
                 ...cardToDuplicate,
-                id: randomId()
+                id: uuidv4()
               },
               ...list.cards.slice(action.data.cardIndex)
             ]

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faCheck, faTrashAlt, faUndo, faRedo, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faCheck, faTrashAlt, faUndo, faRedo, faCopy, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+
+const headerIcons = ['undo', 'redo', 'light', 'dark'];
 
 const Button = styled.button`
   border: none;
@@ -13,12 +15,12 @@ const Button = styled.button`
   height: 22px;
   padding: 0;
   border-radius: 3px;
-  color: ${props => props.iconType === 'undo' || props.iconType === 'redo' ? props.theme.whiteIcon : props.theme.grayIcon};
+  color: ${props => headerIcons.includes(props.iconType) ? props.theme.headerIcon : props.theme.grayIcon};
   font-size: ${props => props.fontSize || ''};
   opacity: ${props => props.disabled ? '0.5' : '1'};
   &:hover {
     ${props => !props.disabled && css`
-      background-color: ${props.iconType === 'undo' || props.iconType === 'redo' ? props.theme.blueHover : props.theme.grayHover};
+      background-color: ${headerIcons.includes(props.iconType) ? props.theme.blueHover : props.theme.grayHover};
     `};
   }
 `;
@@ -43,6 +45,10 @@ const getIconForType = type => {
       return faRedo;
     case 'copy':
       return faCopy;
+    case 'light':
+      return faSun;
+    case 'dark':
+      return faMoon;
     default:
       return null;
   }
@@ -56,7 +62,7 @@ const IconButton = props => {
   );
 };
 IconButton.propTypes = {
-  iconType: PropTypes.oneOf(['edit', 'confirm', 'delete', 'undo', 'redo', 'copy']),
+  iconType: PropTypes.oneOf(['edit', 'confirm', 'delete', 'undo', 'redo', 'copy', 'light', 'dark']),
 };
 IconButton.ButtonContainer = ButtonContainer;
 

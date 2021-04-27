@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { randomId } from '../helpers/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class OustideClickHandler extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ export default class OustideClickHandler extends Component {
     shouldListenClick: true
   };
 
-  id = randomId();
+  id = uuidv4();
 
   componentDidMount() {
     window.addEventListener('click', this.handleOutsideClick);

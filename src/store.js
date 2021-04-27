@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { loadState, saveState } from './helpers/localStorage';
-import rootReducer from './reducers';
+import rootReducer from './reducers/rootReducer';
 
 const middleware = [];
 

@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import Header from '../components/Header';
 import Board from './Board';
 import GlobalStyle from '../styles/globalStyles';
-// eslint-disable-next-line no-unused-vars
 import { themeLight, themeDark } from '../styles/theme';
 
 const App = () => {
+  const [theme, setTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) === false ? themeLight : themeDark);
+
   return (
-    <ThemeProvider theme={themeDark}>
+    <ThemeProvider theme={theme}>
       <Router>
-        <Header />
+        <Header setTheme={setTheme} />
         <Switch>
           <Route
             path="/board"

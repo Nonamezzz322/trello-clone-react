@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-  background-color: ${props => props.value ? 'white' : (props.gray ? props.theme.mediumGray : '#5FA3D3')};
+  background-color: ${props => props.value ? 'white' : (props.gray ? props.theme.mediumGray : props.theme.blueHover)};
   border-radius: 3px;
   border: none;
   box-shadow: none;
@@ -33,7 +33,7 @@ export const Input = styled.input`
 
   &:focus {
     cursor: unset;
-    background-color: white;
+    background-color:  ${props => props.theme.focusGray};
     color: ${props => props.theme.primaryFont};
     ::-webkit-input-placeholder { 
       color: ${props => props.theme.lightFont};;

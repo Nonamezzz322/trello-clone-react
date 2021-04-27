@@ -5,17 +5,17 @@ import { ThemeProvider } from 'styled-components';
 import store from './store';
 
 import './index.css';
-import App from './App';
-import theme from './styles/theme';
+import App from './containers/App';
+// eslint-disable-next-line no-unused-vars
+import { themeLight, themeDark } from './styles/theme';
 import GlobalStyle from './styles/globalStyles';
 
-const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeLight}>
       <App />
       <GlobalStyle />
     </ThemeProvider>
   </Provider>,
-  rootElement
+  document.getElementById('root')
 );

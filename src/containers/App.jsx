@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Header from '../components/Header';
 import Board from './Board';
 
-const Routes = () => {
+const App = () => {
   return (
     <Router>
       <Route path="/">
@@ -22,4 +22,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default App;

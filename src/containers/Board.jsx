@@ -20,15 +20,31 @@ import {
 } from '../actions/boardActions';
 
 const Board = props => {
+  const {
+    lists,
+    onChangeListName,
+    onRemoveList,
+    onDuplicateList,
+    onChangeCardContent,
+    search,
+    onAddList,
+    onAddCard,
+    onRemoveCard,
+    onDuplicateCard,
+    reorderList,
+    onMoveCardToList
+
+  } = props;
+
   const onDragEnd = result => {
     const { source, destination, draggableId } = result;
     if (!destination) {
       return;
     }
     if (source.droppableId === destination.droppableId) {
-      props.reOrderList(source.droppableId, source.index, destination.index);
+      reorderList(source.droppableId, source.index, destination.index);
     } else {
-      props.moveCardToList(
+      onMoveCardToList(
         source.droppableId,
         draggableId,
         destination.droppableId,
@@ -39,27 +55,27 @@ const Board = props => {
   };
   return (
     <div>
-      <BoardContainer countColumns={props.lists.length + 1}>
+      <BoardContainer countColumns={lists.length + 1}>
         <DragDropContext onDragEnd={onDragEnd}>
-          {props.lists.map((list, listIndex) => (
+          {lists.map((list, listIndex) => (
             <CardList
               key={list.id}
               droppableId={list.id}
               list={list}
-              onChangeListName={listName => props.onChangeListName(listIndex, listName)}
-              onRemoveList={() => props.onRemoveList(listIndex)}
-              onDuplicateList={() => props.onDuplicateList(listIndex)}
+              onChangeListName={listName => onChangeListName(listIndex, listName)}
+              onRemoveList={() => onRemoveList(listIndex)}
+              onDuplicateList={() => onDuplicateList(listIndex)}
               // eslint-disable-next-line max-len
-              onChangeCardContent={(cardIndex, content) => props.onChangeCardContent(listIndex, cardIndex, content)}
-              onAddCard={cardContent => props.onAddCard(listIndex, cardContent)}
-              onRemoveCard={cardIndex => props.onRemoveCard(listIndex, cardIndex)}
-              onDuplicateCard={cardIndex => props.onDuplicateCard(listIndex, cardIndex)}
-              searchText={props.search}
+              onChangeCardContent={(cardIndex, content) => onChangeCardContent(listIndex, cardIndex, content)}
+              onAddCard={cardContent => onAddCard(listIndex, cardContent)}
+              onRemoveCard={cardIndex => onRemoveCard(listIndex, cardIndex)}
+              onDuplicateCard={cardIndex => onDuplicateCard(listIndex, cardIndex)}
+              searchText={search}
             />
           ))}
         </DragDropContext>
         <AddForm
-          onConfirm={props.onAddList}
+          onConfirm={onAddList}
           placeholder="+ Add new list"
           focusPlaceholder="Enter list title"
           maxWidth="220px"
@@ -70,8 +86,8 @@ const Board = props => {
 };
 
 Board.propTypes = {
-  reOrderList: PropTypes.func,
-  moveCardToList: PropTypes.func,
+  reorderList: PropTypes.func,
+  onMoveCardToList: PropTypes.func,
   lists: PropTypes.array,
   onChangeListName: PropTypes.func,
   onRemoveList: PropTypes.func,
@@ -93,8 +109,8 @@ const mapDispatchToProps = dispatch => ({
   removeCard: bindActionCreators(removeCard, dispatch),
   addList: bindActionCreators(addList, dispatch),
   removeList: bindActionCreators(removeList, dispatch),
-  reOrderList: bindActionCreators(reOrderList, dispatch),
-  moveCardToList: bindActionCreators(moveCardToList, dispatch),
+  reorderList: bindActionCreators(reOrderList, dispatch),
+  onMoveCardToList: bindActionCreators(moveCardToList, dispatch),
   onChangeCardContent: bindActionCreators(setCardContent, dispatch),
   onChangeListName: bindActionCreators(setListName, dispatch),
   onRemoveList: bindActionCreators(removeList, dispatch),

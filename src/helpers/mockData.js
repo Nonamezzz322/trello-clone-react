@@ -6,32 +6,32 @@ const getCard = content => ({
 });
 export default [
   { id: uuidv4(),
-    name: 'To do',
+    name: 'Конь',
     cards: [
-      getCard('Ingregrate frontend with backend'),
-      getCard('Create integration tests'),
-      getCard('Setup production environment'),
-      getCard('Deploy to production')
+      getCard('КоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоньКоньКоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоньКонь')
     ] },
   { id: uuidv4(),
-    name: 'In progress',
+    name: 'КоньКоньКоньКоньКонь',
     cards: [
-      getCard('Create unit tests'),
-      getCard('Implement API services'),
-      getCard('Mock frontend')
+      getCard('КоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоньКоньКоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоньКонь')
     ] },
   {
     id: uuidv4(),
-    name: 'Ready for test',
+    name: 'конь',
     cards: [
-      getCard('Implement use cases'),
-      getCard('Design API'),
+      getCard('КоньКоньКоньКонь'),
+      getCard('КоньКоньКоньКоКонь')
     ]
   },
   { id: uuidv4(),
-    name: 'Done',
+    name: 'кобыла',
     cards: [
-      getCard('Design database model'),
-      getCard('Create models'),
+      getCard('жопа'),
+      getCard('жопажопажопажопажопа'),
     ] },
 ];

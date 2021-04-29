@@ -49,7 +49,6 @@ const Card = ({ card, index, onChangeCardContent, onRemoveCard, onDuplicateCard 
   };
   return (
     <OutsideClickHandler
-      shouldListenClick={editMode}
       onClickOutside={onClickOutside}
     >
       <Draggable

@@ -11,7 +11,6 @@ export const themeLight = {
   grayHover: '#f3f3f3',
   grayIcon: '#939393',
   headerIcon: '#dfe6ff'
-
 };
 
 export const themeDark = {
@@ -27,5 +26,4 @@ export const themeDark = {
   grayHover: '#02475e',
   grayIcon: '#939393',
   headerIcon: '#dfe6ff'
-
 };

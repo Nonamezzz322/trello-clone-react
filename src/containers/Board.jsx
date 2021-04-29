@@ -62,7 +62,7 @@ const Board = () => {
           ))}
         </DragDropContext>
         <AddForm
-          onConfirm={() => dispatch(addList)}
+          onConfirm={(e) => dispatch(addList(e))}
           placeholder="+ Add new list"
           focusPlaceholder="Enter list title"
           maxWidth="220px"

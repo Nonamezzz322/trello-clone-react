@@ -46,7 +46,6 @@ const CardListHeader = props => {
   };
   return (
     <OutsideClickHandler
-      shouldListenClick={editMode}
       onClickOutside={onClickOutside}
     >
       <StyledCardListHeader

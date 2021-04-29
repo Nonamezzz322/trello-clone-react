@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CardListHeader as StyledCardListHeader } from '../styles/CardList.styles';
-import OutsideClickHandler from './OutsideClickHandler';
 import ContentEditable from './ContentEditable';
 import IconButton from './IconButton';
 import * as UtilsHelper from '../helpers/utils';
@@ -45,9 +44,7 @@ const CardListHeader = props => {
     }
   };
   return (
-    <OutsideClickHandler
-      onClickOutside={onClickOutside}
-    >
+    <div onBlur={onClickOutside}>
       <StyledCardListHeader
         onMouseEnter={() => setOnHover(true)}
         onMouseLeave={() => setOnHover(false)}
@@ -94,7 +91,7 @@ const CardListHeader = props => {
           </>
         )}
       </StyledCardListHeader>
-    </OutsideClickHandler>
+    </div>
   );
 };
 

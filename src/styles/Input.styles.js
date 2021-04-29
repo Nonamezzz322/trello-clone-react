@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Input = styled.input`
-  background-color: ${props => props.value ? 'white' : (props.gray ? props.theme.mediumGray : props.theme.blueHover)};
+  background-color: ${props => props.value ? props.theme.mediumGray : (props.gray ? props.theme.mediumGray : props.theme.blueHover)};
   border-radius: 3px;
   border: none;
   box-shadow: none;

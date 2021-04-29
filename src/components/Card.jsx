@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import OutsideClickHandler from './OutsideClickHandler';
 import { CardContainer } from '../styles/Card.styles';
 import * as UtilsHelper from '../helpers/utils';
 import ContentEditable from './ContentEditable';
@@ -25,10 +24,10 @@ const Card = ({ card, index, onChangeCardContent, onRemoveCard, onDuplicateCard 
     setCardContent(card.content);
   }, [card.content]);
 
-  const onClickOutside = () => {
-    setEditMode(false);
-    onChangeCardContent(cardContent);
-  };
+  // const onClickOutside = () => {
+  //   setEditMode(false);
+  //   onChangeCardContent(cardContent);
+  // };
 
   const onClickSaveEdit = () => {
     if (editMode) {
@@ -48,9 +47,7 @@ const Card = ({ card, index, onChangeCardContent, onRemoveCard, onDuplicateCard 
     }
   };
   return (
-    <OutsideClickHandler
-      onClickOutside={onClickOutside}
-    >
+    <div>
       <Draggable
         key={card.id}
         draggableId={card.id}
@@ -99,7 +96,7 @@ const Card = ({ card, index, onChangeCardContent, onRemoveCard, onDuplicateCard 
           </CardContainer>
         )}
       </Draggable>
-    </OutsideClickHandler>
+    </div>
   );
 };
 
